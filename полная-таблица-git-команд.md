@@ -1,118 +1,207 @@
-| № | Команда | Описание | Основные ключи | Пример |
-|---|---------|----------|----------------|--------|
-| 1 | `git init` | Создать новый репозиторий | `--bare` | `git init проект` |
-| 2 | `git clone` | Клонировать репозиторий | `--depth 1` | `git clone https://github.com/...` |
-| 3 | `git add` | Добавить файлы в staging | `.`, `-p` | `git add .` |
-| 4 | `git commit` | Сделать коммит | `-m`, `-a` | `git commit -m "сообщение"` |
-| 5 | `git status` | Показать статус | `-s` | `git status -s` |
-| 6 | `git push` | Отправить на сервер | `-u` | `git push origin main` |
-| 7 | `git pull` | Получить с сервера | `--rebase` | `git pull origin main` |
-| 8 | `git fetch` | Загрузить изменения | `--all` | `git fetch --all` |
-| 9 | `git branch` | Работа с ветками | `-a`, `-d` | `git branch -a` |
-| 10 | `git checkout` | Переключить ветку | `-b` | `git checkout -b новая` |
-| 11 | `git merge` | Слить ветки | `--no-ff` | `git merge feature` |
-| 12 | `git diff` | Показать различия | `--staged` | `git diff HEAD~1` |
-| 13 | `git log` | История коммитов | `--oneline` | `git log --oneline` |
-| 14 | `git reset` | Отменить коммит | `--soft`, `--hard` | `git reset --soft HEAD~1` |
-| 15 | `git revert` | Отменить изменения | (нет) | `git revert abc123` |
-| 16 | `git stash` | Временно сохранить | `save`, `pop` | `git stash save "работа"` |
-| 17 | `git tag` | Работа с тегами | `-a` | `git tag v1.0` |
-| 18 | `git remote` | Удаленные репозитории | `add`, `-v` | `git remote add origin url` |
-| 19 | `git show` | Показать коммит | `--stat` | `git show abc123` |
-| 20 | `git rm` | Удалить файл | `--cached` | `git rm file.txt` |
-| 21 | `git mv` | Переместить файл | (нет) | `git mv old new` |
-| 22 | `git clean` | Очистить проект | `-fd` | `git clean -fd` |
-| 23 | `git grep` | Поиск в коде | `-n` | `git grep "TODO"` |
-| 24 | `git rebase` | Перебазировать | `-i` | `git rebase -i HEAD~3` |
-| 25 | `git cherry-pick` | Взять коммит | `-n` | `git cherry-pick abc123` |
-| 26 | `git bisect` | Найти баг | `start`, `bad`, `good` | `git bisect start` |
-| 27 | `git blame` | Автор строк | `-L` | `git blame file.txt -L 10,20` |
-| 28 | `git config` | Настройки | `--global` | `git config user.name "Имя"` |
-| 29 | `git help` | Помощь | (команда) | `git help commit` |
-| 30 | `git archive` | Создать архив | `--format=zip` | `git archive -o release.zip HEAD` |
-| 31 | `git describe` | Описать коммит | `--tags` | `git describe --tags` |
-| 32 | `git shortlog` | Сводка по авторам | `-sn` | `git shortlog -sn` |
-| 33 | `git whatchanged` | Что изменилось | `-p` | `git whatchanged --since="1 week"` |
-| 34 | `git reflog` | История HEAD | `show` | `git reflog show` |
-| 35 | `git gc` | Сборка мусора | `--auto` | `git gc --auto` |
-| 36 | `git fsck` | Проверить целостность | `--full` | `git fsck --full` |
-| 37 | `git prune` | Удалить лишнее | `--expire` | `git prune --expire=now` |
-| 38 | `git count-objects` | Подсчет объектов | `-v` | `git count-objects -v` |
-| 39 | `git verify-pack` | Проверить pack | `-v` | `git verify-pack -v .git/objects/pack/*.idx` |
-| 40 | `git cat-file` | Инфо об объекте | `-t`, `-p` | `git cat-file -p HEAD` |
-| 41 | `git update-index` | Обновить индекс | `--assume-unchanged` | `git update-index --assume-unchanged file` |
-| 42 | `git write-tree` | Записать дерево | (нет) | `git write-tree` |
-| 43 | `git commit-tree` | Коммит из дерева | `-p` | `git commit-tree abc -m "msg"` |
-| 44 | `git mktree` | Создать дерево | `-z` | `echo "100644 blob abc file" | git mktree` |
-| 45 | `git mktag` | Создать тег | `--strict` | `git mktag < tag-file` |
-| 46 | `git unpack-file` | Распаковать файл | (нет) | `git unpack-file abc123` |
-| 47 | `git diff-index` | Сравнить с индексом | `--cached` | `git diff-index HEAD` |
-| 48 | `git update-ref` | Обновить ссылку | `-d` | `git update-ref refs/heads/new abc123` |
-| 49 | `git symbolic-ref` | Символическая ссылка | `-q` | `git symbolic-ref HEAD` |
-| 50 | `git check-ignore` | Проверить игнор | `-v` | `git check-ignore -v file` |
-| 51 | `git check-mailmap` | Проверить mailmap | `--stdin` | `echo "Name" | git check-mailmap` |
-| 52 | `git check-ref-format` | Проверить имя ссылки | `--branch` | `git check-ref-format --branch "name"` |
-| 53 | `git column` | Форматировать в колонки | `--mode=column` | `git branch | git column --mode=column` |
-| 54 | `git credential-cache` | Кэш учетных данных | `--timeout` | `git credential-cache --timeout=3600` |
-| 55 | `git credential-store` | Хранилище учетных данных | `--file` | `git credential-store --file=~/.git-credentials` |
-| 56 | `git fmt-merge-msg` | Формат сообщения слияния | `--log` | `git fmt-merge-msg < .git/MERGE_MSG` |
-| 57 | `git interpret-trailers` | Управление трейлерами | `--trailer` | `git interpret-trailers --trailer="Signed-off-by: Name"` |
-| 58 | `git mailinfo` | Инфо из email | `-k` | `git mailinfo msg diff` |
-| 59 | `git mailsplit` | Разделить mbox | `-o` | `git mailsplit -o patches < mailbox` |
-| 60 | `git merge-file` | Слить три файла | `-p` | `git merge-file current base other` |
-| 61 | `git merge-index` | Слияние по индексу | `-o` | `git merge-index -o git-merge-one-file` |
-| 62 | `git merge-one-file` | Слить один файл | (нет) | `git merge-one-file base current other` |
-| 63 | `git patch-id` | ID патча | `--stable` | `git patch-id < patch.diff` |
-| 64 | `git rerere` | Повторное разрешение | `clear` | `git rerere clear` |
-| 65 | `git rev-list` | Список коммитов | `--all` | `git rev-list --all --since="2023-01-01"` |
-| 66 | `git rev-parse` | Разобрать параметры | `--git-dir` | `git rev-parse --show-toplevel` |
-| 67 | `git stripspace` | Убрать пробелы | `-s` | `echo "  text  " | git stripspace` |
-| 68 | `git var` | Показать переменные | `-l` | `git var GIT_AUTHOR_IDENT` |
-| 69 | `git web--browse` | Открыть в браузере | `-b` | `git web--browse https://github.com` |
-| 70 | `git apply` | Применить патч | `--stat` | `git apply patch.diff` |
-| 71 | `git checkout-index` | Скопировать из индекса | `-a` | `git checkout-index -a` |
-| 72 | `git commit-graph` | Граф коммитов | `write` | `git commit-graph write --reachable` |
-| 73 | `git get-tar-commit-id` | ID из tar | (нет) | `git get-tar-commit-id < archive.tar` |
-| 74 | `git gui` | Графический интерфейс | `--version` | `git gui` |
-| 75 | `git merge-base` | Общий предок | `--all` | `git merge-base main feature` |
-| 76 | `git name-rev` | Символическое имя | `--tags` | `git name-rev HEAD` |
-| 77 | `git pack-redundant` | Избыточные packs | `--all` | `git pack-redundant --all` |
-| 78 | `git range-diff` | Сравнение диапазонов | `--creation-factor` | `git range-diff main..f1 main..f2` |
-| 79 | `git read-tree` | Чтение дерева в индекс | `-m` | `git read-tree -m HEAD feature` |
-| 80 | `git sh-i18n` | Интернационализация | `--env` | `git sh-i18n --env` |
-| 81 | `git show-branch` | Показать ветки | `--all` | `git show-branch --all` |
-| 82 | `git show-index` | Показать индекс pack | `--object-format` | `git show-index < .git/objects/pack/pack-*.idx` |
-| 83 | `git show-ref` | Показать ссылки | `--heads` | `git show-ref --heads` |
-| 84 | `git stage` | Синоним для add | (те же что add) | `git stage file.txt` |
-| 85 | `git unpack-objects` | Распаковать объекты | `-n` | `git unpack-objects < pack-file.pack` |
-| 86 | `git update-server-info` | Обновить серверную инфо | `-f` | `git update-server-info` |
-| 87 | `git upload-archive` | Сервер для archive | `--verbose` | `git upload-archive .` |
-| 88 | `git upload-pack` | Сервер для fetch | `--stateless-rpc` | `git upload-pack .` |
-| 89 | `git cvsexportcommit` | Экспорт в CVS | `-c` | `git cvsexportcommit -c -p -v HEAD` |
-| 90 | `git cvsimport` | Импорт из CVS | `-A` | `git cvsimport -C repo -d :pserver:user@server:/path` |
-| 91 | `git imap-send` | Отправить по IMAP | `--curl` | `git imap-send --folder=INBOX.Drafts` |
-| 92 | `git quiltimport` | Импорт quilt | `--patches` | `git quiltimport --patches=patches/*` |
-| 93 | `git request-pull` | Запрос на pull | `-p` | `git request-pull origin/main feature` |
-| 94 | `git send-email` | Отправить email | `--to` | `git send-email --to=dev@list.org patch.patch` |
-| 95 | `git svn` | Работа с SVN | `clone`, `dcommit` | `git svn clone https://svn.example.com/project` |
-| 96 | `git filter-branch` | Переписать историю | `--tree-filter` | `git filter-branch --tree-filter 'rm -f pass.txt' HEAD` |
-| 97 | `git replace` | Заменить объект | `--edit` | `git replace bad good` |
-| 98 | `git credential` | Учетные данные | `fill` | `git credential fill` |
-| 99 | `git verify-commit` | Проверить подпись коммита | `--verbose` | `git verify-commit HEAD` |
-| 100 | `git verify-tag` | Проверить подпись тега | `--verbose` | `git verify-tag v1.0` |
-| 101 | `git worktree` | Несколько рабочих деревьев | `add` | `git worktree add ../hotfix hotfix` |
-| 102 | `git notes` | Заметки к коммитам | `add` | `git notes add -m "заметка" abc123` |
-| 103 | `git bundle` | Упаковать в bundle | `create` | `git bundle create repo.bundle HEAD main` |
-| 104 | `git daemon` | Git демон | `--export-all` | `git daemon --export-all --base-path=/git` |
-| 105 | `git instaweb` | Веб-интерфейс | `--httpd` | `git instaweb --httpd=webrick --start` |
-| 106 | `git mergetool` | Инструмент слияния | `--tool` | `git mergetool --tool=vimdiff` |
-| 107 | `git difftool` | Инструмент сравнения | `--tool` | `git difftool --tool=meld HEAD~1` |
-| 108 | `git submodule` | Подмодули | `add`, `update` | `git submodule add https://github.com/user/sub.git` |
-| 109 | `git switch` | Новый способ переключения | `-c` | `git switch -c новая-ветка` |
-| 110 | `git restore` | Новый способ восстановления | `--staged` | `git restore --staged file.txt` |
+# Создаем файл с таблицей со скриншотами
+cat > таблица-команд-со-скриншотами.md << 'EOF'
+# 📊 ПОЛНАЯ ТАБЛИЦА 110 КОМАНД GIT СО СКРИНШОТАМИ
 
-## 📊 Статистика по категориям
+| № | Команда | Описание | Основные ключи | Пример | 📸 Скриншот выполнения |
+|---|---------|----------|----------------|--------|------------------------|
+| 1 | `git init` | Инициализация нового репозитория | `--bare`, `-q` | `git init my-project` | ![git init](screenshots/01-git-init.png) |
+| 2 | `git clone` | Клонирование существующего репозитория | `--depth`, `--branch` | `git clone https://github.com/user/repo.git` | ![git clone](screenshots/02-git-clone.png) |
+| 3 | `git add` | Добавление файлов в индекс | `.`, `-p`, `-A` | `git add .` | ![git add](screenshots/03-git-add.png) |
+| 4 | `git commit` | Фиксация изменений | `-m`, `-a`, `--amend` | `git commit -m "message"` | ![git commit](screenshots/04-git-commit.png) |
+| 5 | `git status` | Показать состояние рабочей директории | `-s`, `-b` | `git status` | ![git status](screenshots/05-git-status.png) |
+| 6 | `git push` | Отправка изменений на удаленный репозиторий | `-u`, `--force` | `git push origin main` | ![git push](screenshots/06-git-push.png) |
+| 7 | `git pull` | Загрузка изменений с удаленного репозитория | `--rebase`, `--ff-only` | `git pull origin main` | ![git pull](screenshots/07-git-pull.png) |
+| 8 | `git fetch` | Загрузка изменений без слияния | `--all`, `--prune` | `git fetch origin` | ![git fetch](screenshots/08-git-fetch.png) |
+| 9 | `git branch` | Работа с ветками | `-a`, `-d`, `-v` | `git branch feature/new` | ![git branch](screenshots/09-git-branch.png) |
+| 10 | `git checkout` | Переключение между ветками | `-b`, `-f` | `git checkout -b feature` | ![git checkout](screenshots/10-git-checkout.png) |
+| 11 | `git merge` | Слияние веток | `--no-ff`, `--squash` | `git merge feature` | ![git merge](screenshots/11-git-merge.png) |
+| 12 | `git diff` | Показать изменения | `--staged`, `HEAD~1` | `git diff HEAD~1` | ![git diff](screenshots/12-git-diff.png) |
+| 13 | `git log` | История коммитов | `--oneline`, `--graph` | `git log --oneline` | ![git log](screenshots/13-git-log.png) |
+| 14 | `git reset` | Сброс изменений | `--soft`, `--hard` | `git reset --soft HEAD~1` | ![git reset](screenshots/14-git-reset.png) |
+| 15 | `git revert` | Отмена коммита | `-n`, `--no-edit` | `git revert abc123` | ![git revert](screenshots/15-git-revert.png) |
+| 16 | `git stash` | Временное сохранение изменений | `save`, `pop`, `list` | `git stash save "work"` | ![git stash](screenshots/16-git-stash.png) |
+| 17 | `git tag` | Работа с тегами | `-a`, `-s`, `-l` | `git tag -a v1.0` | ![git tag](screenshots/17-git-tag.png) |
+| 18 | `git remote` | Управление удаленными репозиториями | `add`, `-v`, `remove` | `git remote add origin url` | ![git remote](screenshots/18-git-remote.png) |
+| 19 | `git show` | Показать информацию о коммите | `--stat`, `--name-only` | `git show HEAD` | ![git show](screenshots/19-git-show.png) |
+| 20 | `git rm` | Удаление файлов | `--cached`, `-r` | `git rm file.txt` | ![git rm](screenshots/20-git-rm.png) |
+| 21 | `git mv` | Перемещение файлов | (нет) | `git mv old.txt new.txt` | ![git mv](screenshots/21-git-mv.png) |
+| 22 | `git clean` | Очистка неотслеживаемых файлов | `-f`, `-d`, `-n` | `git clean -fd` | ![git clean](screenshots/22-git-clean.png) |
+| 23 | `git grep` | Поиск текста в файлах репозитория | `-n`, `-i` | `git grep "TODO"` | ![git grep](screenshots/23-git-grep.png) |
+| 24 | `git rebase` | Перебазирование ветки | `-i`, `--continue` | `git rebase -i HEAD~3` | ![git rebase](screenshots/24-git-rebase.png) |
+| 25 | `git cherry-pick` | Применение конкретного коммита | `-n`, `-x` | `git cherry-pick abc123` | ![git cherry-pick](screenshots/25-git-cherry-pick.png) |
+| 26 | `git bisect` | Бинарный поиск бага | `start`, `bad`, `good` | `git bisect start` | ![git bisect](screenshots/26-git-bisect.png) |
+| 27 | `git blame` | Авторство строк файла | `-L`, `-w` | `git blame file.txt` | ![git blame](screenshots/27-git-blame.png) |
+| 28 | `git config` | Настройка параметров Git | `--global`, `--list` | `git config user.name` | ![git config](screenshots/28-git-config.png) |
+| 29 | `git help` | Помощь по командам | (команда) | `git help commit` | ![git help](screenshots/29-git-help.png) |
+| 30 | `git archive` | Создание архива | `--format=zip` | `git archive -o repo.zip HEAD` | ![git archive](screenshots/30-git-archive.png) |
+| 31 | `git describe` | Описать коммит | `--tags`, `--always` | `git describe --tags` | ![git describe](screenshots/31-git-describe.png) |
+| 32 | `git shortlog` | Сводка по авторам | `-sn`, `-e` | `git shortlog -sn` | ![git shortlog](screenshots/32-git-shortlog.png) |
+| 33 | `git whatchanged` | Что изменилось | `-p`, `--since` | `git whatchanged --since="1 week"` | ![git whatchanged](screenshots/33-git-whatchanged.png) |
+| 34 | `git reflog` | История ссылок | `show`, `expire` | `git reflog show` | ![git reflog](screenshots/34-git-reflog.png) |
+| 35 | `git gc` | Сборка мусора | `--auto`, `--aggressive` | `git gc --auto` | ![git gc](screenshots/35-git-gc.png) |
+| 36 | `git fsck` | Проверка целостности | `--full`, `--unreachable` | `git fsck --full` | ![git fsck](screenshots/36-git-fsck.png) |
+| 37 | `git prune` | Удаление мусора | `--expire`, `--verbose` | `git prune --expire=now` | ![git prune](screenshots/37-git-prune.png) |
+| 38 | `git count-objects` | Подсчет объектов | `-v`, `-H` | `git count-objects -vH` | ![git count-objects](screenshots/38-git-count-objects.png) |
+| 39 | `git verify-pack` | Проверка pack файлов | `-v` | `git verify-pack -v .git/objects/pack/*.idx` | ![git verify-pack](screenshots/39-git-verify-pack.png) |
+| 40 | `git cat-file` | Информация об объектах | `-t`, `-p` | `git cat-file -t HEAD` | ![git cat-file](screenshots/40-git-cat-file.png) |
+| 41 | `git update-index` | Обновление индекса | `--assume-unchanged` | `git update-index --assume-unchanged file` | ![git update-index](screenshots/41-git-update-index.png) |
+| 42 | `git write-tree` | Запись дерева объектов | (нет) | `git write-tree` | ![git write-tree](screenshots/42-git-write-tree.png) |
+| 43 | `git commit-tree` | Коммит из дерева | `-p`, `-m` | `git commit-tree abc -m "msg"` | ![git commit-tree](screenshots/43-git-commit-tree.png) |
+| 44 | `git mktree` | Создание дерева | `-z` | `echo "100644 blob abc file" | git mktree` | ![git mktree](screenshots/44-git-mktree.png) |
+| 45 | `git mktag` | Создание тега | `--strict` | `git mktag < tag-file` | ![git mktag](screenshots/45-git-mktag.png) |
+| 46 | `git unpack-file` | Распаковка файла | (нет) | `git unpack-file abc123` | ![git unpack-file](screenshots/46-git-unpack-file.png) |
+| 47 | `git diff-index` | Сравнение с индексом | `--cached` | `git diff-index HEAD` | ![git diff-index](screenshots/47-git-diff-index.png) |
+| 48 | `git update-ref` | Обновление ссылок | `-d` | `git update-ref refs/heads/new abc123` | ![git update-ref](screenshots/48-git-update-ref.png) |
+| 49 | `git symbolic-ref` | Символические ссылки | `-q` | `git symbolic-ref HEAD` | ![git symbolic-ref](screenshots/49-git-symbolic-ref.png) |
+| 50 | `git check-ignore` | Проверка .gitignore | `-v` | `git check-ignore -v file` | ![git check-ignore](screenshots/50-git-check-ignore.png) |
+| 51 | `git check-mailmap` | Проверка mailmap | `--stdin` | `echo "Name" | git check-mailmap` | ![git check-mailmap](screenshots/51-git-check-mailmap.png) |
+| 52 | `git check-ref-format` | Проверка имени ссылки | `--branch` | `git check-ref-format --branch "name"` | ![git check-ref-format](screenshots/52-git-check-ref-format.png) |
+| 53 | `git column` | Форматирование в колонки | `--mode=column` | `git branch | git column --mode=column` | ![git column](screenshots/53-git-column.png) |
+| 54 | `git credential-cache` | Кэш учетных данных | `--timeout` | `git credential-cache --timeout=3600` | ![git credential-cache](screenshots/54-git-credential-cache.png) |
+| 55 | `git credential-store` | Хранилище учетных данных | `--file` | `git credential-store --file=~/.git-credentials` | ![git credential-store](screenshots/55-git-credential-store.png) |
+| 56 | `git fmt-merge-msg` | Формат сообщения слияния | `--log` | `git fmt-merge-msg < .git/MERGE_MSG` | ![git fmt-merge-msg](screenshots/56-git-fmt-merge-msg.png) |
+| 57 | `git interpret-trailers` | Управление трейлерами | `--trailer` | `git interpret-trailers --trailer="Signed-by: Name"` | ![git interpret-trailers](screenshots/57-git-interpret-trailers.png) |
+| 58 | `git mailinfo` | Информация из email | `-k` | `git mailinfo msg diff` | ![git mailinfo](screenshots/58-git-mailinfo.png) |
+| 59 | `git mailsplit` | Разделение mbox | `-o` | `git mailsplit -o patches < mailbox` | ![git mailsplit](screenshots/59-git-mailsplit.png) |
+| 60 | `git merge-file` | Слияние трех файлов | `-p` | `git merge-file current base other` | ![git merge-file](screenshots/60-git-merge-file.png) |
+| 61 | `git merge-index` | Слияние по индексу | `-o` | `git merge-index -o git-merge-one-file` | ![git merge-index](screenshots/61-git-merge-index.png) |
+| 62 | `git merge-one-file` | Слияние одного файла | (нет) | `git merge-one-file base current other` | ![git merge-one-file](screenshots/62-git-merge-one-file.png) |
+| 63 | `git patch-id` | ID патча | `--stable` | `git patch-id < patch.diff` | ![git patch-id](screenshots/63-git-patch-id.png) |
+| 64 | `git rerere` | Повторное разрешение конфликтов | `clear`, `diff` | `git rerere diff` | ![git rerere](screenshots/64-git-rerere.png) |
+| 65 | `git rev-list` | Список коммитов | `--all`, `--since` | `git rev-list --all --since="2024-01-01"` | ![git rev-list](screenshots/65-git-rev-list.png) |
+| 66 | `git rev-parse` | Разбор параметров | `--git-dir`, `--show-toplevel` | `git rev-parse --show-toplevel` | ![git rev-parse](screenshots/66-git-rev-parse.png) |
+| 67 | `git stripspace` | Удаление пробелов | `-s` | `echo "  text  " | git stripspace` | ![git stripspace](screenshots/67-git-stripspace.png) |
+| 68 | `git var` | Показать переменные | `-l` | `git var GIT_AUTHOR_IDENT` | ![git var](screenshots/68-git-var.png) |
+| 69 | `git web--browse` | Открыть в браузере | `-b` | `git web--browse https://github.com` | ![git web--browse](screenshots/69-git-web-browse.png) |
+| 70 | `git apply` | Применить патч | `--stat` | `git apply patch.diff` | ![git apply](screenshots/70-git-apply.png) |
+| 71 | `git checkout-index` | Копирование из индекса | `-a` | `git checkout-index -a` | ![git checkout-index](screenshots/71-git-checkout-index.png) |
+| 72 | `git commit-graph` | Граф коммитов | `write` | `git commit-graph write --reachable` | ![git commit-graph](screenshots/72-git-commit-graph.png) |
+| 73 | `git get-tar-commit-id` | ID из tar архива | (нет) | `git get-tar-commit-id < archive.tar` | ![git get-tar-commit-id](screenshots/73-git-get-tar-commit-id.png) |
+| 74 | `git gui` | Графический интерфейс | `--version` | `git gui` | ![git gui](screenshots/74-git-gui.png) |
+| 75 | `git merge-base` | Общий предок | `--all` | `git merge-base main feature` | ![git merge-base](screenshots/75-git-merge-base.png) |
+| 76 | `git name-rev` | Символическое имя | `--tags` | `git name-rev HEAD` | ![git name-rev](screenshots/76-git-name-rev.png) |
+| 77 | `git pack-redundant` | Избыточные pack файлы | `--all` | `git pack-redundant --all` | ![git pack-redundant](screenshots/77-git-pack-redundant.png) |
+| 78 | `git range-diff` | Сравнение диапазонов | `--creation-factor` | `git range-diff main..f1 main..f2` | ![git range-diff](screenshots/78-git-range-diff.png) |
+| 79 | `git read-tree` | Чтение дерева в индекс | `-m` | `git read-tree -m HEAD feature` | ![git read-tree](screenshots/79-git-read-tree.png) |
+| 80 | `git sh-i18n` | Интернационализация | `--env` | `git sh-i18n --env` | ![git sh-i18n](screenshots/80-git-sh-i18n.png) |
+| 81 | `git show-branch` | Показать ветки | `--all` | `git show-branch --all` | ![git show-branch](screenshots/81-git-show-branch.png) |
+| 82 | `git show-index` | Показать индекс pack | `--object-format` | `git show-index < .git/objects/pack/pack-*.idx` | ![git show-index](screenshots/82-git-show-index.png) |
+| 83 | `git show-ref` | Показать ссылки | `--heads` | `git show-ref --heads` | ![git show-ref](screenshots/83-git-show-ref.png) |
+| 84 | `git stage` | Синоним для git add | `.`, `-p` | `git stage .` | ![git stage](screenshots/84-git-stage.png) |
+| 85 | `git unpack-objects` | Распаковка объектов | `-n` | `git unpack-objects < pack-file.pack` | ![git unpack-objects](screenshots/85-git-unpack-objects.png) |
+| 86 | `git update-server-info` | Обновить серверную информацию | `-f` | `git update-server-info` | ![git update-server-info](screenshots/86-git-update-server-info.png) |
+| 87 | `git upload-archive` | Сервер для archive | `--verbose` | `git upload-archive .` | ![git upload-archive](screenshots/87-git-upload-archive.png) |
+| 88 | `git upload-pack` | Сервер для fetch | `--stateless-rpc` | `git upload-pack .` | ![git upload-pack](screenshots/88-git-upload-pack.png) |
+| 89 | `git cvsexportcommit` | Экспорт в CVS | `-c`, `-p` | `git cvsexportcommit -c -p -v HEAD` | ![git cvsexportcommit](screenshots/89-git-cvsexportcommit.png) |
+| 90 | `git cvsimport` | Импорт из CVS | `-A` | `git cvsimport -C repo -d :pserver:user@server:/path` | ![git cvsimport](screenshots/90-git-cvsimport.png) |
+| 91 | `git imap-send` | Отправка по IMAP | `--curl` | `git imap-send --folder=INBOX.Drafts` | ![git imap-send](screenshots/91-git-imap-send.png) |
+| 92 | `git quiltimport` | Импорт quilt | `--patches` | `git quiltimport --patches=patches/*` | ![git quiltimport](screenshots/92-git-quiltimport.png) |
+| 93 | `git request-pull` | Запрос на pull | `-p` | `git request-pull origin/main feature` | ![git request-pull](screenshots/93-git-request-pull.png) |
+| 94 | `git send-email` | Отправка email | `--to` | `git send-email --to=dev@list.org patch.patch` | ![git send-email](screenshots/94-git-send-email.png) |
+| 95 | `git svn` | Работа с SVN | `clone`, `dcommit` | `git svn clone https://svn.example.com/project` | ![git svn](screenshots/95-git-svn.png) |
+| 96 | `git filter-branch` | Переписать историю | `--tree-filter` | `git filter-branch --tree-filter 'rm -f pass.txt' HEAD` | ![git filter-branch](screenshots/96-git-filter-branch.png) |
+| 97 | `git replace` | Замена объектов | `--edit` | `git replace bad good` | ![git replace](screenshots/97-git-replace.png) |
+| 98 | `git credential` | Учетные данные | `fill` | `git credential fill` | ![git credential](screenshots/98-git-credential.png) |
+| 99 | `git verify-commit` | Проверка подписи коммита | `--verbose` | `git verify-commit HEAD` | ![git verify-commit](screenshots/99-git-verify-commit.png) |
+| 100 | `git verify-tag` | Проверка подписи тега | `--verbose` | `git verify-tag v1.0` | ![git verify-tag](screenshots/100-git-verify-tag.png) |
+| 101 | `git worktree` | Несколько рабочих деревьев | `add` | `git worktree add ../hotfix hotfix` | ![git worktree](screenshots/101-git-worktree.png) |
+| 102 | `git notes` | Заметки к коммитам | `add` | `git notes add -m "заметка" abc123` | ![git notes](screenshots/102-git-notes.png) |
+| 103 | `git bundle` | Упаковка в bundle | `create` | `git bundle create repo.bundle HEAD main` | ![git bundle](screenshots/103-git-bundle.png) |
+| 104 | `git daemon` | Git демон | `--export-all` | `git daemon --export-all --base-path=/git` | ![git daemon](screenshots/104-git-daemon.png) |
+| 105 | `git instaweb` | Веб-интерфейс | `--httpd` | `git instaweb --httpd=webrick --start` | ![git instaweb](screenshots/105-git-instaweb.png) |
+| 106 | `git mergetool` | Инструмент слияния | `--tool` | `git mergetool --tool=vimdiff` | ![git mergetool](screenshots/106-git-mergetool.png) |
+| 107 | `git difftool` | Инструмент сравнения | `--tool` | `git difftool --tool=meld HEAD~1` | ![git difftool](screenshots/107-git-difftool.png) |
+| 108 | `git submodule` | Подмодули | `add`, `update` | `git submodule add https://github.com/user/sub.git` | ![git submodule](screenshots/108-git-submodule.png) |
+| 109 | `git switch` | Переключение веток (новая) | `-c` | `git switch -c new-branch` | ![git switch](screenshots/109-git-switch.png) |
+| 110 | `git restore` | Восстановление файлов (новая) | `--staged` | `git restore --staged file.txt` | ![git restore](screenshots/110-git-restore.png) |
 
-- **Основные команды:** 30 команд (используются ежедневно)
-- **Продвинутые команды:** 40 команд (используются периодически)
-- **Специализированные:** 40 команд (для специфических задач)
+## 📁 **КАК ДОБАВЛЯТЬ СКРИНШОТЫ:**
+
+### **Метод 1: Через Issues GitHub**
+1. Создайте Issue с названием `[Скриншот] Команда #`
+2. Перетащите файл скриншота в поле описания
+3. Укажите номер команды и ваше имя
+4. Закройте Issue после проверки
+
+### **Метод 2: Через Pull Request**
+1. Создайте папку `screenshots/[номер-команды]/`
+2. Положите туда скриншот с именем `ваш-username.png`
+3. Создайте PR с описанием выполненной команды
+4. Скриншот автоматически добавится в таблицу
+
+### **Метод 3: Через Discussions**
+1. Откройте Discussions в репозитории
+2. Создайте пост с категорией "Скриншоты"
+3. Прикрепите скриншот и опишите выполнение
+4. Отметьте команду как выполненную
+
+## 🖼️ **ТРЕБОВАНИЯ К СКРИНШОТАМ:**
+
+1. **Формат:** PNG или JPG
+2. **Размер:** не более 2MB
+3. **Содержание:** виден терминал VSCode с командой
+4. **Имя файла:** `команда-номер-username-дата.png`
+5. **Видимость:** результат выполнения команды должен быть читаем
+
+## 🔗 **ССЫЛКИ НА СКРИНШОТЫ В ТАБЛИЦЕ:**
+
+Каждая ячейка "📸 Скриншот выполнения" содержит Markdown-ссылку вида: https://screenshots/01-git-init.png
+
+**Чтобы добавить свой скриншот:**
+1. Скопируйте путь: `screenshots/01-git-init.png`
+2. Загрузите свой скриншот в папку `screenshots/`
+3. Или замените ссылку на ссылку к вашему скриншоту на GitHub
+
+## 📊 **АВТОМАТИЧЕСКАЯ ГЕНЕРАЦИЯ ТАБЛИЦЫ:**
+
+```bash
+# Скрипт для обновления таблицы со скриншотами
+cat > update-table-with-screenshots.sh << 'EOF'
+#!/bin/bash
+# Скрипт обновления таблицы команд со скриншотами
+
+TABLE_FILE="таблица-команд-со-скриншотами.md"
+SCREENSHOTS_DIR="screenshots"
+
+echo "# 📊 ПОЛНАЯ ТАБЛИЦА 110 КОМАНД GIT СО СКРИНШОТАМИ" > $TABLE_FILE
+echo "" >> $TABLE_FILE
+echo "| № | Команда | Описание | Основные ключи | Пример | 📸 Скриншот выполнения |" >> $TABLE_FILE
+echo "|---|---------|----------|----------------|--------|------------------------|" >> $TABLE_FILE
+
+# Команды 1-30 (базовые)
+commands=(
+    "1|git init|Инициализация нового репозитория|--bare, -q|git init my-project|"
+    "2|git clone|Клонирование существующего репозитория|--depth, --branch|git clone https://github.com/user/repo.git|"
+    "3|git add|Добавление файлов в индекс|., -p, -A|git add .|"
+    # ... добавьте остальные 110 команд
+)
+
+for cmd in "${commands[@]}"; do
+    IFS='|' read -r num name desc keys example <<< "$cmd"
+    
+    # Проверяем есть ли скриншот
+    screenshot_path=""
+    if [ -f "$SCREENSHOTS_DIR/$num-$name.png" ]; then
+        screenshot_path="![$name]($SCREENSHOTS_DIR/$num-$name.png)"
+    elif [ -f "$SCREENSHOTS_DIR/$(printf "%03d" $num).png" ]; then
+        screenshot_path="![$name]($SCREENSHOTS_DIR/$(printf "%03d" $num).png)"
+    else
+        screenshot_path="*Скриншот отсутствует*"
+    fi
+    
+    echo "| $num | \`$name\` | $desc | $keys | \`$example\` | $screenshot_path |" >> $TABLE_FILE
+done
+
+echo "" >> $TABLE_FILE
+echo "## 📸 СТАТИСТИКА СКРИНШОТОВ" >> $TABLE_FILE
+echo "" >> $TABLE_FILE
+
+# Считаем скриншоты
+total_screenshots=$(find $SCREENSHOTS_DIR -name "*.png" -o -name "*.jpg" | wc -l)
+echo "- Всего скриншотов: $total_screenshots/110" >> $TABLE_FILE
+echo "- Процент выполнения: $((total_screenshots * 100 / 110))%" >> $TABLE_FILE
+
+echo "✅ Таблица обновлена!" 
+EOF
+
+chmod +x update-table-with-screenshots.sh
