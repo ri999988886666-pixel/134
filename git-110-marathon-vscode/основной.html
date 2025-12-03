@@ -1,0 +1,190 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 Марафон 110 команд Git в VSCode</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <header class="header">
+            <h1><i class="fas fa-code-branch"></i> Марафон 110 команд Git</h1>
+            <p class="subtitle">Полное прохождение всех команд Git прямо в VSCode</p>
+        </header>
+
+        <!-- Статистика -->
+        <div class="stats-panel">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="stat-info">
+                    <span class="stat-number" id="completed-count">0</span>
+                    <span class="stat-label">Выполнено</span>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                <div class="stat-info">
+                    <span class="stat-number" id="pending-count">110</span>
+                    <span class="stat-label">Осталось</span>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-camera"></i></div>
+                <div class="stat-info">
+                    <span class="stat-number" id="screenshots-count">0</span>
+                    <span class="stat-label">Скриншотов</span>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-percentage"></i></div>
+                <div class="stat-info">
+                    <span class="stat-number" id="progress-percent">0%</span>
+                    <span class="stat-label">Прогресс</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Прогресс бар -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progress-text">0 из 110 команд выполнено</span>
+            </div>
+        </div>
+
+        <!-- Основной контент -->
+        <div class="main-content">
+            <!-- Левая панель: Список команд -->
+            <div class="left-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-list"></i> Список команд (110)</h3>
+                    <div class="search-box">
+                        <input type="text" id="search-commands" placeholder="Поиск команды...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                
+                <div class="commands-list" id="commands-list">
+                    <!-- Команды будут загружены через JavaScript -->
+                </div>
+                
+                <div class="list-actions">
+                    <button class="btn btn-primary" onclick="markAllCompleted()">
+                        <i class="fas fa-check-double"></i> Отметить все
+                    </button>
+                    <button class="btn btn-secondary" onclick="resetProgress()">
+                        <i class="fas fa-redo"></i> Сбросить
+                    </button>
+                </div>
+            </div>
+
+            <!-- Правая панель: Детали команды -->
+            <div class="right-panel">
+                <div class="command-details" id="command-details">
+                    <div class="empty-state">
+                        <i class="fas fa-mouse-pointer fa-3x"></i>
+                        <h3>Выберите команду из списка</h3>
+                        <p>Кликните на любую команду слева, чтобы увидеть детали и задания</p>
+                    </div>
+                </div>
+                
+                <!-- Панель скриншотов -->
+                <div class="screenshots-panel">
+                    <h4><i class="fas fa-camera"></i> Скриншоты для этой команды</h4>
+                    <div class="screenshots-container" id="screenshots-container">
+                        <div class="no-screenshots">
+                            <i class="fas fa-image fa-2x"></i>
+                            <p>Скриншоты отсутствуют</p>
+                        </div>
+                    </div>
+                    
+                    <div class="screenshot-actions">
+                        <button class="btn btn-success" onclick="addScreenshot()">
+                            <i class="fas fa-plus"></i> Добавить скриншот
+                        </button>
+                        <button class="btn btn-info" onclick="openScreenshotsFolder()">
+                            <i class="fas fa-folder-open"></i> Открыть папку
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Нижняя панель с действиями -->
+        <div class="action-panel">
+            <button class="btn btn-large btn-primary" onclick="runNextCommand()">
+                <i class="fas fa-play"></i> Запустить следующую команду
+            </button>
+            
+            <button class="btn btn-large btn-success" onclick="generateReport()">
+                <i class="fas fa-file-download"></i> Создать отчет
+            </button>
+            
+            <button class="btn btn-large btn-warning" onclick="openVSCodeTerminal()">
+                <i class="fas fa-terminal"></i> Открыть терминал VSCode
+            </button>
+        </div>
+
+        <!-- Модальное окно для скриншотов -->
+        <div id="screenshot-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h3><i class="fas fa-camera"></i> Добавить скриншот</h3>
+                
+                <div class="screenshot-instructions">
+                    <h4>Как сделать скриншот в VSCode:</h4>
+                    <ol>
+                        <li>Выполните команду в терминале VSCode</li>
+                        <li>Нажмите <kbd>Ctrl+Shift+P</kbd> (Win/Linux) или <kbd>Cmd+Shift+P</kbd> (Mac)</li>
+                        <li>Введите "screenshot" и выберите опцию</li>
+                        <li>Или используйте системные сочетания клавиш:
+                            <ul>
+                                <li><strong>Windows:</strong> <kbd>PrtScn</kbd> или <kbd>Alt+PrtScn</kbd></li>
+                                <li><strong>Mac:</strong> <kbd>Cmd+Shift+4</kbd></li>
+                                <li><strong>Linux:</strong> <kbd>Print Screen</kbd></li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                
+                <div class="screenshot-upload">
+                    <h4>Загрузить скриншот:</h4>
+                    <div class="upload-area" id="drop-area">
+                        <i class="fas fa-cloud-upload-alt fa-3x"></i>
+                        <p>Перетащите сюда файл или кликните для выбора</p>
+                        <input type="file" id="file-input" accept="image/*" hidden>
+                        <button class="btn btn-primary" onclick="document.getElementById('file-input').click()">
+                            Выбрать файл
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="screenshot-preview" id="preview-container" style="display: none;">
+                    <h4>Предпросмотр:</h4>
+                    <img id="preview-image" src="" alt="Предпросмотр">
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn btn-success" onclick="saveScreenshot()" id="save-btn" disabled>
+                        <i class="fas fa-save"></i> Сохранить скриншот
+                    </button>
+                    <button class="btn btn-secondary" onclick="closeModal()">
+                        Отмена
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
