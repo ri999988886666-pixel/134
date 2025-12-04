@@ -4,24 +4,24 @@ cat > таблица-команд-со-скриншотами.md << 'EOF'
 
 | № | Команда | Описание | Основные ключи | Пример | 📸 Скриншот выполнения |
 |---|---------|----------|----------------|--------|------------------------|
-| 1 | `git init` | Инициализация нового репозитория | `--bare`, `-q` | `git init my-project` | ![alt text](image.png) |
-| 2 | `git clone` | Клонирование существующего репозитория | `--depth`, `--branch` | `git clone https://github.com/user/repo.git` | ![git clone](screenshots/02-git-clone.png) |
-| 3 | `git add` | Добавление файлов в индекс | `.`, `-p`, `-A` | `git add .` | ![git add](screenshots/03-git-add.png) |
-| 4 | `git commit` | Фиксация изменений | `-m`, `-a`, `--amend` | `git commit -m "message"` | ![git commit](screenshots/04-git-commit.png) |
-| 5 | `git status` | Показать состояние рабочей директории | `-s`, `-b` | `git status` | ![git status](screenshots/05-git-status.png) |
-| 6 | `git push` | Отправка изменений на удаленный репозиторий | `-u`, `--force` | `git push origin main` | ![git push](screenshots/06-git-push.png) |
-| 7 | `git pull` | Загрузка изменений с удаленного репозитория | `--rebase`, `--ff-only` | `git pull origin main` | ![git pull](screenshots/07-git-pull.png) |
-| 8 | `git fetch` | Загрузка изменений без слияния | `--all`, `--prune` | `git fetch origin` | ![git fetch](screenshots/08-git-fetch.png) |
-| 9 | `git branch` | Работа с ветками | `-a`, `-d`, `-v` | `git branch feature/new` | ![git branch](screenshots/09-git-branch.png) |
-| 10 | `git checkout` | Переключение между ветками | `-b`, `-f` | `git checkout -b feature` | ![git checkout](screenshots/10-git-checkout.png) |
-| 11 | `git merge` | Слияние веток | `--no-ff`, `--squash` | `git merge feature` | ![git merge](screenshots/11-git-merge.png) |
-| 12 | `git diff` | Показать изменения | `--staged`, `HEAD~1` | `git diff HEAD~1` | ![git diff](screenshots/12-git-diff.png) |
-| 13 | `git log` | История коммитов | `--oneline`, `--graph` | `git log --oneline` | ![git log](screenshots/13-git-log.png) |
-| 14 | `git reset` | Сброс изменений | `--soft`, `--hard` | `git reset --soft HEAD~1` | ![git reset](screenshots/14-git-reset.png) |
-| 15 | `git revert` | Отмена коммита | `-n`, `--no-edit` | `git revert abc123` | ![git revert](screenshots/15-git-revert.png) |
-| 16 | `git stash` | Временное сохранение изменений | `save`, `pop`, `list` | `git stash save "work"` | ![git stash](screenshots/16-git-stash.png) |
-| 17 | `git tag` | Работа с тегами | `-a`, `-s`, `-l` | `git tag -a v1.0` | ![git tag](screenshots/17-git-tag.png) |
-| 18 | `git remote` | Управление удаленными репозиториями | `add`, `-v`, `remove` | `git remote add origin url` | ![git remote](screenshots/18-git-remote.png) |
+| 1 | `git init` | Инициализация нового репозитория | `--bare`, `-q` | `git init my-project` | ![alt text](image-3.png) |
+| 2 | `git clone` | Клонирование существующего репозитория | `--depth`, `--branch` | `git clone https://github.com/user/repo.git` | ![alt text](image-1.png) |
+| 3 | `git add` | Добавление файлов в индекс | `.`, `-p`, `-A` | `git add .` | ![alt text](image-5.png) |
+| 4 | `git commit` | Фиксация изменений | `-m`, `-a`, `--amend` | `git commit -m "message"` | ![alt text](image-6.png) |
+| 5 | `git status` | Показать состояние рабочей директории | `-s`, `-b` | `git status` | ![alt text](image-7.png) |
+| 6 | `git push` | Отправка изменений на удаленный репозиторий | `-u`, `--force` | `git push origin main` | ![alt text](image-13.png) |
+| 7 | `git pull` | Загрузка изменений с удаленного репозитория | `--rebase`, `--ff-only` | `git pull origin main` |  |
+| 8 | `git fetch` | Загрузка изменений без слияния | `--all`, `--prune` | `git fetch origin` |  |
+| 9 | `git branch` | Работа с ветками | `-a`, `-d`, `-v` | `git branch feature/new` | ![alt text](image-12.png) |
+| 10 | `git checkout` | Переключение между ветками | `-b`, `-f` | `git checkout -b feature` | ![alt text](image-9.png) |
+| 11 | `git merge` | Слияние веток | `--no-ff`, `--squash` | `git merge feature` | ![alt text](image-10.png) |
+| 12 | `git diff` | Показать изменения | `--staged`, `HEAD~1` | `git diff HEAD~1` |  |
+| 13 | `git log` | История коммитов | `--oneline`, `--graph` | `git log --oneline` | ![alt text](image-8.png) |
+| 14 | `git reset` | Сброс изменений | `--soft`, `--hard` | `git reset --soft HEAD~1` |  |
+| 15 | `git revert` | Отмена коммита | `-n`, `--no-edit` | `git revert abc123` |  |
+| 16 | `git stash` | Временное сохранение изменений | `save`, `pop`, `list` | `git stash save "work"` |  |
+| 17 | `git tag` | Работа с тегами | `-a`, `-s`, `-l` | `git tag -a v1.0` |  |
+| 18 | `git remote` | Управление удаленными репозиториями | `add`, `-v`, `remove` | `git remote add origin url` | ![alt text](image-11.png) |
 | 19 | `git show` | Показать информацию о коммите | `--stat`, `--name-only` | `git show HEAD` | ![git show](screenshots/19-git-show.png) |
 | 20 | `git rm` | Удаление файлов | `--cached`, `-r` | `git rm file.txt` | ![git rm](screenshots/20-git-rm.png) |
 | 21 | `git mv` | Перемещение файлов | (нет) | `git mv old.txt new.txt` | ![git mv](screenshots/21-git-mv.png) |
@@ -114,9 +114,9 @@ cat > таблица-команд-со-скриншотами.md << 'EOF'
 | 108 | `git submodule` | Подмодули | `add`, `update` | `git submodule add https://github.com/user/sub.git` | ![git submodule](screenshots/108-git-submodule.png) |
 | 109 | `git switch` | Переключение веток (новая) | `-c` | `git switch -c new-branch` | ![git switch](screenshots/109-git-switch.png) |
 | 110 | `git restore` | Восстановление файлов (новая) | `--staged` | `git restore --staged file.txt` | ![git restore](screenshots/110-git-restore.png) |
-
+|111| `git config` | назначить пользователя |  `user.name`, `user.email`| `git config user.name "SashaMIX11"` | ![alt text](image-4.png) |
 ## 📁 **КАК ДОБАВЛЯТЬ СКРИНШОТЫ:**
-
+``
 ### **Метод 1: Через Issues GitHub**
 1. Создайте Issue с названием `[Скриншот] Команда #`
 2. Перетащите файл скриншота в поле описания
